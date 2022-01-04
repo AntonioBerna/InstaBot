@@ -4,7 +4,6 @@ import instaloader
 import datetime
 import json
 
-
 class InstaApp:
     def __init__(self, root):
         self.config = json.load(open("config.json"))

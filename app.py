@@ -107,22 +107,26 @@ class InstaApp:
             else:
                 self.updates_label.config(text="Account Instagram Non Trovato!")
         else:
-            self.updates_label.config(text="Account Inserito Non Valido!")
+            self.updates_label.config(text="Account Inserito\nNon Valido!")
     
     def __getUnFollowers(self):
+        l = []
+
         try:
             now = datetime.datetime.now()
             first_file = open(f"({self.config['victim_profile']}) {now.day - 1}-{now.month}-{now.year}.txt", "r")
             first_l = first_file.readlines()
         except FileNotFoundError:
-            self.updates_label.config(text=f"File Del {now.day - 1}-{now.month}-{now.year} Non Trovato!")
+            print(f"File Del {now.day - 1}-{now.month}-{now.year} Non Trovato!")
+            return l
         
         try:
             now = datetime.datetime.now()
             second_file = open(f"({self.config['victim_profile']}) {now.day}-{now.month}-{now.year}.txt", "r")
             second_l = second_file.readlines()
         except FileNotFoundError:
-            self.updates_label.config(text=f"File Del {now.day}-{now.month}-{now.year} Non Trovato!")
+            print(f"File Del {now.day}-{now.month}-{now.year} Non Trovato!")
+            return l
         
         sup, inf = [], []
         if len(first_l) > len(second_l):
@@ -135,7 +139,6 @@ class InstaApp:
             sup = first_l # = second_l
             inf = sup
         
-        l = []
         for i in range(0, len(sup)):
             if sup[i] not in inf:
                 l.append(sup[i])
